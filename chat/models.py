@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 
 class Room(models.Model):
@@ -19,8 +20,8 @@ class Room(models.Model):
 
 class Message(models.Model):
     content = models.TextField()
-    sender = models.ForeignKey(User)
-    receiver = models.ForeignKey(User)
+    sender = models.ForeignKey(User, related_name='sender_id')
+    receiver = models.ForeignKey(User, related_name='receiver_id')
     room = models.ForeignKey(Room)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     
