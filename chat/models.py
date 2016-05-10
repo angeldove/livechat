@@ -14,3 +14,14 @@ class Room(models.Model):
     
     def __unicode__(self):
         return self.name
+
+
+class Message(models.Model):
+    content = models.TextField()
+    sender = models.ForeignKey(User)
+    receiver = models.ForeignKey(User)
+    room = models.ForeignKey(Room)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
+    
+    def __unicode__(self):
+        return self.content[:30]
