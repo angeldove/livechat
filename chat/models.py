@@ -9,8 +9,8 @@ class Room(models.Model):
     """
     name = models.CharField(max_length=64)
     created_by = models.ForeignKey(User)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     active = models.BooleanField(_('Active'), default=False)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
     
     def __unicode__(self):
         return self.name
