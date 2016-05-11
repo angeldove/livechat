@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'chat.apps.ChatConfig',
-    'registration.apps.RegistrationConfig',
+    'reg.apps.RegConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
