@@ -28,5 +28,4 @@ urlpatterns = [
 
     # 'reg.views.reg_form' view
     url(r'register/$', 'reg.views.regform', name='regform'),
-    #url(r'^register/$', 'chat.views.home', name='reg_form'),
 ]
