@@ -19,4 +19,10 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', 'chat.views.home', name='home'),
+
+    # auth URL confs
+    url(r'^login/$', 'chat.views.login_page', name='login_page'),
+    url(r'^logout/$', 'chat.views.logout_page', name='logout_page'),
+    url(r'^accounts/logout/$', 'chat.views.logout_page', name='logout_page'),
+    url(r'^accounts/login/$', 'chat.views.login_page', name='login_page'),
 ]
