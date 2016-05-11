@@ -25,4 +25,7 @@ urlpatterns = [
     url(r'^logout/$', 'chat.views.logout_page', name='logout_page'),
     url(r'^accounts/logout/$', 'chat.views.logout_page', name='logout_page'),
     url(r'^accounts/login/$', 'chat.views.login_page', name='login_page'),
+
+    # 'registration.views.registration_form' view
+    url(r'register/$', 'registration.views.registration_form'),
 ]
