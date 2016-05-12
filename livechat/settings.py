@@ -33,8 +33,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 3rd party apps
+    'grappelli',
+
+    # liveschat apps
     'chat.apps.ChatConfig',
     'reg.apps.RegConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
