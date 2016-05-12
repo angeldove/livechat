@@ -16,18 +16,20 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+import chat.views as chat_views
+import reg.views as reg_views
+
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', admin.site.urls),
-
-    url(r'^$', 'chat.views.home', name='home'),
+    url(r'^$', chat_views.home, name='home'),
 
     # auth URL confs
-    url(r'^login/$', 'chat.views.login_page', name='login_page'),
-    url(r'^logout/$', 'chat.views.logout_page', name='logout_page'),
-    url(r'^accounts/logout/$', 'chat.views.logout_page', name='logout_page'),
-    url(r'^accounts/login/$', 'chat.views.login_page', name='login_page'),
+    url(r'^login/$', chat_views.login_page, name='login_page'),
+    url(r'^logout/$', chat_views.logout_page, name='logout_page'),
+    url(r'^accounts/logout/$', chat_views.logout_page, name='logout_page'),
+    url(r'^accounts/login/$', chat_views.login_page, name='login_page'),
 
     # 'reg.views.reg_form' view
-    url(r'register/$', 'reg.views.regform', name='regform'),
+    url(r'register/$', reg_views.regform, name='regform'),
 ]
