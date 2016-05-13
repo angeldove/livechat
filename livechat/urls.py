@@ -56,4 +56,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^rooms/$', chat_views.room_list),
+    url(r'^rooms/(?P<pk>[0-9]+)/$', chat_views.room_detail),
 ]
