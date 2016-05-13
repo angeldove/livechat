@@ -32,4 +32,7 @@ urlpatterns = [
 
     # 'reg.views.reg_form' view
     url(r'register/$', reg_views.regform, name='regform'),
+
+    # django rest framework urls
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # 3rd party apps
     'grappelli',
+    'rest_framework',
 
     # liveschat apps
     'chat.apps.ChatConfig',
