@@ -8,8 +8,8 @@ from django.http import *
 from rest_framework.renderers import JSONRenderer
 
 from livechat.forms import LoginForm
-from chat.models import Room
-from chat.serializers import RoomSerializer
+from chat.models import Room, Message
+from chat.serializers import RoomSerializer, MessageSerializer
 
 
 class JSONResponse(HttpResponse):
@@ -63,6 +63,50 @@ def room_detail(request, pk):
 
     elif request.method == 'DELETE':
         room.delete()
+        return HttpResponse(status=204)
+
+@csrf_exempt
+def message_list(request):
+    """
+    list all code messages, or create a new message.
+    """
+    if request.method == 'GET':
+        messages = Message.objects.all()
+        serializer = MessageSerializer(messages, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = MessageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def message_detail(request, pk):
+    """
+    functions retrieves, updates or deletes a message.
+    """
+    try:
+        message = Message.objects.get(pk=pk)
+    except Message.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = MessageSerializer(message)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = MessageSerializer(message, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data)
+        return JSONResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        message.delete()
         return HttpResponse(status=204)
 
 def home(request):	

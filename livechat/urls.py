@@ -57,4 +57,6 @@ urlpatterns = [
 
     url(r'^rooms/$', chat_views.room_list),
     url(r'^rooms/(?P<pk>[0-9]+)/$', chat_views.room_detail),
+    url(r'^messages/$', chat_views.message_list),
+    url(r'^messages/(?P<pk>[0-9]+)/$', chat_views.message_detail),
 ]
