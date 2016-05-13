@@ -53,5 +53,7 @@ urlpatterns = [
     url(r'register/$', reg_views.regform, name='regform'),
 
     # django rest framework urls
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    url(r'^rooms/$', chat_views.room_list),
 ]

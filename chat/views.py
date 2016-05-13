@@ -5,7 +5,11 @@ from django.core.context_processors import csrf
 from django.contrib.auth import authenticate, login, logout
 from django.http import *
 
+from rest_framework.renderers import JSONRenderer
+
 from livechat.forms import LoginForm
+from chat.models import Room
+from chat.serializers import RoomSerializer
 
 
 class JSONResponse(HttpResponse):
@@ -17,6 +21,23 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
+@csrf_exempt
+def room_list(request):
+    """
+    List all code rooms, or create a new room.
+    """
+    if request.method == 'GET':
+        rooms = Room.objects.all()
+        serializer = RoomSerializer(rooms, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = RoomSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
 
 def home(request):	
     return render_to_response('index.html')
