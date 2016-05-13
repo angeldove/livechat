@@ -129,3 +129,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+###############################################################
+#                                                             #
+# any global settings for a REST framework API are kept in a  #
+# single configuration dictionary named REST_FRAMEWORK        #
+#                                                             #
+###############################################################
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
