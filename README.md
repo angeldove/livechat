@@ -13,14 +13,14 @@ Live chat application in django and python
 
   http://localhost:8000/rooms/1
 
-    JSON Response format:
+    - JSON Response format:
     {"id":1,"name":"General"}
 
 
 * Get all messages
     http://localhost:8000/messages/
 
-    JSON Response format:
+    - JSON Response format:
     [{"id":1,"content":"Hello there","sender":2,"receiver":3,"room":1,"created_at":"2016-05-12T13:42:26.195015Z"}]
 
    
