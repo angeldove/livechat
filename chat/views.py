@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
@@ -21,6 +20,7 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
+
 @csrf_exempt
 def room_list(request):
     """
@@ -38,6 +38,7 @@ def room_list(request):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
+
 
 @csrf_exempt
 def room_detail(request, pk):
@@ -65,6 +66,7 @@ def room_detail(request, pk):
         room.delete()
         return HttpResponse(status=204)
 
+
 @csrf_exempt
 def message_list(request):
     """
@@ -82,6 +84,7 @@ def message_list(request):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
+
 
 @csrf_exempt
 def message_detail(request, pk):
@@ -109,17 +112,19 @@ def message_detail(request, pk):
         message.delete()
         return HttpResponse(status=204)
 
-def home(request):	
+
+def home(request):
     return render_to_response('index.html')
+
 
 def login_page(request):
     """
-    If user is authenticated, direct them to the next page. 
+    If user is authenticated, direct them to the next page.
     Otherwise, take them to the login page.
 
     :param request: django HttpRequest
 
-    :return: django HttpResponse 
+    :return: django HttpResponse
     """
 
     state = ""
@@ -134,7 +139,8 @@ def login_page(request):
         next_page = request.GET.get('next')
 
     if request.POST:
-        form = LoginForm(request.POST) # A form bound to the POST data
+        # a form bound to the post data
+        form = LoginForm(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
         next_page = request.POST.get('next')
@@ -143,18 +149,20 @@ def login_page(request):
             if user.is_active:
                 login(request, user)
                 state = "You're successfully logged in!"
-                return HttpResponseRedirect(next_page) # Redirect after POST
+                # redirect after post
+                return HttpResponseRedirect(next_page)
             else:
                 state = "Your account is not active, please contact the site admin."
         else:
             state = "Your username and/or password were incorrect."
 
-    c = {'state':state, 'username': username, 'form': form, 'next': next_page}
-    c.update(csrf(request)) 
+    c = {'state': state, 'username': username, 'form': form, 'next': next_page}
+    c.update(csrf(request))
 
     return render_to_response('auth.html', c)
+
 
 def logout_page(request):
     """ Log users out and re-direct them to the main page. """
     logout(request)
-    return HttpResponseRedirect('/login/', {'request':request})
+    return HttpResponseRedirect('/login/', {'request': request})

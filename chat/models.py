@@ -13,7 +13,7 @@ class Room(models.Model):
     created_by = models.ForeignKey(User)
     active = models.BooleanField(_('Active'), default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
-    
+
     def __unicode__(self):
         return self.name
 
@@ -24,6 +24,6 @@ class Message(models.Model):
     receiver = models.ForeignKey(User, related_name='receiver_id')
     room = models.ForeignKey(Room)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
-    
+
     def __unicode__(self):
         return self.content[:30]
